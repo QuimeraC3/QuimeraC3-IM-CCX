@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quimera — Interpretación Médica. Comunicación clínica para intérpretes médicos en activo.">
+    <title>Quimera — Interpretación Médica</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #0f766e;
+            --primary-hover: #115e59;
+            --accent: #d97706;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .top-bar {
+            background-color: #0b1329;
+            padding: 0.85rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            color: #ffffff;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: color 0.2s ease;
+        }
+
+        .brand-logo:hover {
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* ENCABEZADO CON IMAGEN DE FONDO */
+        header {
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.10)), url('Quimera.webp');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 5rem 3rem;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .header-tag {
+            display: block; 
+            width: fit-content; 
+            margin: 0 auto 1.25rem auto; 
+            background-color: var(--primary);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.35rem 1.2rem;
+            border-radius: 9999px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            text-align: center; 
+        }
+
+        header .subtitle {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        header .description {
+            font-size: 1.15rem;
+            color: #ffffff;
+            font-weight: 500;
+            max-width: 850px;
+            margin: 0 auto;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem;
+        }
+
+        .section-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.85rem;
+            color: var(--text-main);
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        /* GRID DE MÓDULOS / SERIES PEDAGÓGICAS */
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .series-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .series-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .series-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .series-card h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.25rem;
+            line-height: 1.4;
+        }
+
+        .series-card h3 a {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.75rem;
+            transition: color 0.2s ease;
+        }
+
+        .series-card h3 a:hover {
+            color: var(--primary-hover);
+        }
+
+        .series-card h3 a span {
+            font-family: sans-serif;
+            font-size: 1.2rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 3.5rem 1.5rem;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header .subtitle {
+                font-size: 1.05rem;
+            }
+            header .description {
+                font-size: 0.95rem;
+            }
+            .top-bar-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-size: 0.875rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación Superior -->
+    <nav class="top-bar">
+        <div class="top-bar-container">
+            <a href="https://quimerac3.github.io/" class="brand-logo">QUIMERA - Inicio General</a>
+            <ul class="nav-links">
+                <li><a href="https://quimerac3.github.io/QuimeraC3-IM/index.html">Estructura y Programas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Encabezado Principal con Imagen de Fondo -->
+    <header>
+        <span class="header-tag">&bull; INSTITUTO QUIMERA &bull;</span>
+        <h1>INTERPRETACIÓN MÉDICA</h1>
+        <p class="subtitle">COMUNICACIÓN CLÍNICA PARA INTÉRPRETES MÉDICOS EN ACTIVO.</p>
+        <p class="description">Especialización, desarrollo continuo de competencias de alta precisión y transferencia crítica del conocimiento clínico.</p>
+    </header>
+
+    <main class="container">
+
+        <!-- Sección Principal de Catálogo -->
+        <section id="series">
+            <h2 class="section-title">Catálogo de Módulos</h2>
+            <div class="series-grid">
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 01</div>
+                        <h3><a href="modulo-01.html">Fundamentos de la Comunicación Clínica. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 02</div>
+                        <h3><a href="modulo-02.html">Relación Intérprete-Paciente-Profesional de la Salud. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 03</div>
+                        <h3><a href="modulo-03.html">Mediación Lingüística y Cultural. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 04</div>
+                        <h3><a href="modulo-04.html">Comunicación en Situaciones Complejas. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 05</div>
+                        <h3><a href="modulo-05.html">Comunicación con Poblaciones Especiales. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 06</div>
+                        <h3><a href="modulo-06.html">Comunicación No Verbal y Paralingüística. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 07</div>
+                        <h3><a href="modulo-07.html">Terminología y Lenguaje Clínico. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 08</div>
+                        <h3><a href="modulo-08.html">Alfabetización en Salud y Comprensión. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 09</div>
+                        <h3><a href="modulo-09.html">Comunicación Clínica Digital y Remota. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 10</div>
+                        <h3><a href="modulo-10.html">Calidad y Seguridad de la Comunicación. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+                <article class="series-card">
+                    <div>
+                        <div class="series-badge">Módulo 11</div>
+                        <h3><a href="modulo-11.html">Equivalencias y Conversión Clínica. <span>&rarr;</span></a></h3>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página Actualizado -->
+    <footer>
+        <p id="footer-p">&bull; &copy; 2026 Instituto Quimera. &bull; Centro de Investigación, Docencia, Servicio y Difusión. &bull; Dr.C. Cesar Cerezo Camacho. &bull; Todos los derechos reservados. &bull;</p>
+    </footer>
+
+    <script>
+        // Script de autocorrección dinámica del año actual en el footer
+        document.addEventListener('DOMContentLoaded', () => {
+            const footerP = document.getElementById('footer-p');
+            if (footerP) {
+                footerP.innerHTML = footerP.innerHTML.replace('2026', new Date().getFullYear());
+            }
+        });
+    </script>
+
+</body>
+</html>
